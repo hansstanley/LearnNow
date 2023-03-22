@@ -1,4 +1,5 @@
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import {useNavigation} from '@react-navigation/native';
+import {FlatList} from 'react-native-gesture-handler';
 import {Card, ListItem, Text, View} from 'react-native-ui-lib';
 
 const ITEMS = [
@@ -23,6 +24,12 @@ const ITEMS = [
 ];
 
 export default function ChapterList() {
+  const navigation = useNavigation();
+
+  const handlePress = (item: string) => {
+    navigation.navigate('Chapter');
+  };
+
   return (
     <Card>
       <View paddingH-20>
@@ -30,7 +37,7 @@ export default function ChapterList() {
           data={ITEMS}
           renderItem={({index, item}) => (
             <View key={index}>
-              <ListItem onPress={() => {}}>
+              <ListItem onPress={handlePress}>
                 <ListItem.Part>
                   <Text text50>{item}</Text>
                 </ListItem.Part>
