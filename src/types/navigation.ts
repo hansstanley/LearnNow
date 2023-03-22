@@ -1,7 +1,4 @@
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Chapter} from './chapter';
 import {Section} from './section';
 
@@ -11,14 +8,14 @@ export type RootTabParamList = {
 };
 
 export type HomeStackParamList = {
-  Chapters: undefined;
+  Home: undefined;
   Chapter: {chapter: Chapter};
   Section: {section: Section};
 };
 
-export type HomeScreenNavigationProp = NativeStackNavigationProp<
+export type HomeScreenProps = NativeStackScreenProps<
   HomeStackParamList,
-  'Chapters'
+  'Home'
 >;
 
 export type ChapterScreenProps = NativeStackScreenProps<

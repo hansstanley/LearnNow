@@ -1,4 +1,5 @@
 import {Chapter} from '../types/chapter';
+import {LastPosition} from '../types/progress';
 import {Section} from '../types/section';
 
 export const CHAPTERS: Chapter[] = [
@@ -62,3 +63,16 @@ export const SECTIONS: Section[] = [
     isCompleted: false,
   },
 ];
+
+export const LAST_POSITION: LastPosition = {
+  chapterId: 3,
+  sectionId: 5,
+};
+
+export function getChapter(chapterId: number) {
+  return CHAPTERS.find(c => c.id === chapterId);
+}
+
+export function getSection(sectionId: number) {
+  return SECTIONS.find(s => s.id === sectionId);
+}

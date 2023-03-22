@@ -1,5 +1,5 @@
 import {Box, ScrollView, Text, View} from 'native-base';
-import SectionList from '../components/section/SectionList';
+import {SectionList} from '../components/section';
 import {ChapterScreenProps} from '../types/navigation';
 
 export default function ChapterScreen({route}: ChapterScreenProps) {
