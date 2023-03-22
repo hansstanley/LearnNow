@@ -1,3 +1,4 @@
+import ChapterItem from './ChapterItem';
 import ChapterList from './ChapterList';
 
-export {ChapterList};
+export {ChapterItem, ChapterList};

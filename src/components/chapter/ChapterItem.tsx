@@ -11,7 +11,7 @@ export default function ChapterItem({chapter}: ChapterItemProps) {
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
   const handlePress = () => {
-    navigation.navigate('Chapter');
+    navigation.navigate('Chapter', {chapter});
   };
 
   return (
