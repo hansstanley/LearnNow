@@ -15,13 +15,11 @@ export default function ChapterItem({chapter}: ChapterItemProps) {
   };
 
   return (
-    <Pressable onPress={handlePress}>
+    <Pressable p={1} onPress={handlePress}>
       {({isPressed}) => (
         <Stack
           space={2}
           p={4}
-          mx={5}
-          my={2}
           rounded="2xl"
           shadow={isPressed ? 1 : 2}
           opacity={isPressed ? 0.9 : 1}

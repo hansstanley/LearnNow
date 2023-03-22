@@ -15,13 +15,11 @@ export default function SectionItem({section}: SectionItemProps) {
   };
 
   return (
-    <Pressable onPress={handlePress}>
+    <Pressable onPress={handlePress} p={1}>
       {({isPressed}) => (
         <Stack
           space={2}
           p={4}
-          mx={5}
-          my={2}
           rounded="2xl"
           shadow={isPressed ? 1 : 2}
           opacity={section.isCompleted ? 0.8 : isPressed ? 0.9 : 1}
