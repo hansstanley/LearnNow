@@ -28,21 +28,11 @@ function App(): JSX.Element {
 
   return (
     <View flex>
-      <HomeScreen />
+      <View flex marginB-32>
+        <HomeScreen />
+      </View>
       <NavigationBar />
     </View>
-  );
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <View flex>
-        <HomeScreen />
-        <NavigationBar />
-      </View>
-    </SafeAreaView>
   );
 }
 

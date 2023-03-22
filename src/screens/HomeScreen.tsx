@@ -1,14 +1,21 @@
-import {Card, View} from 'react-native-ui-lib';
+import {FlatList} from 'react-native-gesture-handler';
+import {
+  Card,
+  GridList,
+  GridListItem,
+  ListItem,
+  Text,
+  View,
+} from 'react-native-ui-lib';
+import {ChapterList} from '../components/chapter';
 
 export default function HomeScreen() {
   return (
-    <View>
-      <Card>
-        <Card.Section
-          content={[{text: 'Card content here', text10: true, grey10: true}]}
-          contentStyle={{alignItems: 'center'}}
-        />
-      </Card>
+    <View flexG padding-20>
+      <View paddingV-20>
+        <Text text10>Chapters</Text>
+      </View>
+      <ChapterList />
     </View>
   );
 }
