@@ -24,9 +24,9 @@ export default function ChapterItem({chapter}: ChapterItemProps) {
           shadow={isPressed ? 1 : 2}
           opacity={isPressed ? 0.9 : 1}
           bg="light.50">
-          <Heading size="md">{chapter.title}</Heading>
+          <Heading size="md">{chapter.fields.title}</Heading>
           <Text _light={{color: 'primary.800'}} _dark={{color: 'primary.200'}}>
-            {chapter.description}
+            {chapter.fields.description}
           </Text>
         </Stack>
       )}

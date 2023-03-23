@@ -15,5 +15,9 @@ def all_chapters(request):
     return HttpResponse(serializers.serialize('json', Chapter.objects.all()))
 
 
+def find_chapter(request, chapter_id: int):
+    return HttpResponse(serializers.serialize('json', [Chapter.objects.get(pk=chapter_id)]))
+
+
 def sections_by_chapter(request, chapter_id: int):
     return HttpResponse(serializers.serialize('json', Section.objects.filter(chapter=chapter_id)))

@@ -1,12 +1,25 @@
-import {FlatList, Flex, Stack} from 'native-base';
-import {CHAPTERS} from '../../utils/sample';
+import {Stack} from 'native-base';
+import {useEffect, useState} from 'react';
+import Config from 'react-native-config';
+import {getChapters} from '../../services/api';
+import {Chapter} from '../../types/chapter';
 import ChapterItem from './ChapterItem';
 
 export default function ChapterList() {
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+
+  useEffect(() => {
+    getChapters()
+      .then(c => setChapters(c))
+      .catch(err => {
+        console.log(Config.API_URL);
+      });
+  }, []);
+
   return (
     <Stack space={2}>
-      {CHAPTERS.map(c => (
-        <ChapterItem key={c.id} chapter={c} />
+      {chapters.map(c => (
+        <ChapterItem key={c.pk} chapter={c} />
       ))}
     </Stack>
   );
