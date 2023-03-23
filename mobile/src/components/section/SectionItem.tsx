@@ -22,10 +22,10 @@ export default function SectionItem({section}: SectionItemProps) {
           p={4}
           rounded="2xl"
           shadow={isPressed ? 1 : 2}
-          opacity={section.isCompleted ? 0.8 : isPressed ? 0.9 : 1}
+          opacity={isPressed ? 0.9 : 1}
           bg="light.50">
-          <Heading size="md">{section.title}</Heading>
-          <Text>{section.summary}</Text>
+          <Heading size="md">{section.fields.title}</Heading>
+          <Text>{section.fields.summary}</Text>
         </Stack>
       )}
     </Pressable>

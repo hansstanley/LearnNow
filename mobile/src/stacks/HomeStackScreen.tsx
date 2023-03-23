@@ -17,12 +17,12 @@ export default function HomeStackScreen() {
       <HomeStack.Screen
         name="Chapter"
         component={ChapterScreen}
-        options={({route}) => ({title: route.params.chapter.title})}
+        options={({route}) => ({title: route.params.chapter.fields.title})}
       />
       <HomeStack.Screen
         name="Section"
         component={SectionScreen}
-        options={({route}) => ({title: route.params.section.title})}
+        options={({route}) => ({title: route.params.section.fields.title})}
       />
     </HomeStack.Navigator>
   );

@@ -1,6 +1,5 @@
 import {Stack} from 'native-base';
 import {useEffect, useState} from 'react';
-import Config from 'react-native-config';
 import {getChapters} from '../../services/api';
 import {Chapter} from '../../types/chapter';
 import ChapterItem from './ChapterItem';
@@ -12,7 +11,7 @@ export default function ChapterList() {
     getChapters()
       .then(c => setChapters(c))
       .catch(err => {
-        console.log(Config.API_URL);
+        console.error(err);
       });
   }, []);
 

@@ -7,4 +7,6 @@ urlpatterns = [
     path('chapters/<int:chapter_id>/', views.find_chapter, name='one_chapter'),
     path('chapters/<int:chapter_id>/sections/',
          views.sections_by_chapter, name='sections_by_chapter'),
+    path('chapters/<int:chapter_id>/sections/<int:section_id>/',
+         views.find_section, name='one_section')
 ]

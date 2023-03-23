@@ -1,6 +1,9 @@
 export interface Section {
-  id: number;
-  title: string;
-  summary: string;
-  isCompleted: boolean;
+  pk: number;
+  fields: {
+    title: string;
+    summary: string;
+    content: string;
+    chapter: number;
+  };
 }

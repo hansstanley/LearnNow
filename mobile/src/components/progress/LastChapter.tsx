@@ -1,18 +1,25 @@
 import {useNavigation} from '@react-navigation/native';
+import {AxiosError} from 'axios';
 import {Heading, Pressable, Stack, Text} from 'native-base';
 import {useEffect, useState} from 'react';
-import {getChapter} from '../../services/api';
+import {getChapter, getSection} from '../../services/api';
 import {Chapter} from '../../types/chapter';
 import {HomeScreenProps} from '../../types/navigation';
-import {getSection, LAST_POSITION} from '../../utils/sample';
+import {Section} from '../../types/section';
+import {LAST_POSITION} from '../../utils/sample';
 
 export default function LastChapter() {
   const navigation = useNavigation<HomeScreenProps['navigation']>();
   const [chapter, setChapter] = useState<Chapter>();
-  const section = getSection(LAST_POSITION.sectionId);
+  const [section, setSection] = useState<Section>();
 
   useEffect(() => {
-    getChapter(1).then(c => setChapter(c));
+    getChapter(LAST_POSITION.chapterId).then(c => setChapter(c));
+    getSection(LAST_POSITION.chapterId, LAST_POSITION.sectionId)
+      .then(s => setSection(s))
+      .catch(err => {
+        console.error(err);
+      });
   }, []);
 
   const handlePress = () => {
@@ -36,7 +43,7 @@ export default function LastChapter() {
           </Text>
           <Heading size="md">{chapter?.fields.title}</Heading>
           <Text _light={{color: 'primary.800'}} _dark={{color: 'primary.200'}}>
-            {section?.title}
+            {section?.fields.title}
           </Text>
         </Stack>
       )}
