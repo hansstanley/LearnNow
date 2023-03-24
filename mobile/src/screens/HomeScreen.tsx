@@ -1,6 +1,6 @@
 import {Divider, Heading, ScrollView, Stack} from 'native-base';
 import {ChapterList} from '../components/chapter';
-import {LastChapter} from '../components/progress';
+import {LastRead} from '../components/progress';
 
 export default function HomeScreen() {
   return (
@@ -9,7 +9,7 @@ export default function HomeScreen() {
         <Heading size="3xl" my={5}>
           Chapters
         </Heading>
-        <LastChapter />
+        <LastRead />
         <Divider />
         <ChapterList />
       </Stack>

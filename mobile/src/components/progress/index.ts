@@ -1,3 +1,3 @@
-import LastChapter from './LastChapter';
+import LastRead from './LastChapter';
 
-export {LastChapter};
+export {LastRead};

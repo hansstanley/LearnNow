@@ -4,12 +4,12 @@ import {useEffect, useState} from 'react';
 import {useStoreState} from '../../features/auth';
 import {ProgressStore} from '../../features/progress';
 import {getChapter, getSection} from '../../services/api';
-import {getLastSection} from '../../services/progress';
+import {getLastSection, storeLastSection} from '../../services/progress';
 import {Chapter} from '../../types/chapter';
 import {HomeScreenProps} from '../../types/navigation';
 import {Section} from '../../types/section';
 
-export default function LastChapter() {
+export default function LastRead() {
   const navigation = useNavigation<HomeScreenProps['navigation']>();
   const username = useStoreState(state => state.auth.username);
   const lastSection = ProgressStore.useStoreState(
@@ -42,6 +42,11 @@ export default function LastChapter() {
       .catch(err => {
         console.error(err);
       });
+
+    if (!username) {
+      return;
+    }
+    storeLastSection(username, lastSection);
   }, [lastSection]);
 
   const handlePress = () => {
