@@ -1,5 +1,5 @@
-import {ScrollView, Stack, Text} from 'native-base';
-import {useEffect, useRef, useState} from 'react';
+import {Image, ScrollView, Stack, Text} from 'native-base';
+import {useCallback, useEffect, useRef, useState} from 'react';
 import {ScrollView as ReactScrollView} from 'react-native';
 import {ProgressStore} from '../features/progress';
 import {SectionScreenProps} from '../types/navigation';
@@ -37,17 +37,45 @@ export default function SectionScreen({route}: SectionScreenProps) {
     });
   }, [section, scrollProgress]);
 
+  const fillContent = useCallback(() => {
+    const regex = /\[.*\]/;
+    const chunks = section.fields.content.split(/\n/).filter(c => !!c.trim());
+
+    const content = [];
+    let key = 0;
+    for (let chunk of chunks) {
+      if (regex.test(chunk)) {
+        const uri = chunk.substring(chunk.indexOf('[') + 1, chunk.indexOf(']'));
+        content.push(
+          <Image
+            key={key}
+            source={{uri}}
+            alt={uri}
+            rounded="2xl"
+            resizeMode="cover"
+            width="100%"
+            height={200}
+          />,
+        );
+      } else {
+        content.push(<Text key={key}>{chunk}</Text>);
+      }
+      key += 1;
+    }
+    return content;
+  }, [section]);
+
   return (
     <ScrollView
       ref={scrollRef}
       onMomentumScrollEnd={event =>
         setScrollProgress(event.nativeEvent.contentOffset.y)
       }>
-      <Stack space={2} p={5}>
+      <Stack space={5} p={5}>
         <Text _light={{color: 'primary.800'}} _dark={{color: 'primary.200'}}>
           {section.fields.summary}
         </Text>
-        <Text>{section.fields.content}</Text>
+        {fillContent()}
       </Stack>
     </ScrollView>
   );
