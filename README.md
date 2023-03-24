@@ -18,7 +18,9 @@ Simple username-and-password based authentication to access the app.
 
 The content from the backend is organised into chapters and sections for easy navigation. Additionally, the last-read section is pinned to the top of the `Chapters` screen, to jump straight back reading.
 
-![Last progress](docs/images/last_progress.mov)
+
+https://user-images.githubusercontent.com/20805849/227514678-c25d3ff2-558f-4dbf-a5e8-c14f2db7b895.mov
+
 
 Not only does the app remember the last section you read, but it also tracks the exact position in the section you stopped at. This works for all sections, which especially helps those who like to jump back and forth between sections.
 
@@ -36,7 +38,7 @@ Every sections can contain both text and images, enhancing the reading experienc
 
 Users can also change their passwords or logout from the `Profile` screen.
 
-## Developers
+## For Developers
 
 ### Tech Stack
 
