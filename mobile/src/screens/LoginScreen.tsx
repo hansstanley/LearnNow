@@ -1,18 +1,8 @@
-import {
-  Alert,
-  Button,
-  Center,
-  Heading,
-  HStack,
-  Input,
-  Text,
-  useToast,
-  VStack,
-} from 'native-base';
+import {Button, Center, Heading, HStack, useToast, VStack} from 'native-base';
 import {useState} from 'react';
 import {PasswordInput, UsernameInput} from '../components/form';
 import {ToastAlert} from '../components/toast';
-import {useStoreActions} from '../features/auth';
+import {useStoreActions} from '../features/store';
 import {login, register} from '../services/api';
 
 export default function LoginScreen() {

@@ -6,20 +6,17 @@
  */
 
 import React, {PropsWithChildren, useEffect} from 'react';
-import {useColorScheme} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import ProfileScreen from './src/screens/ProfileScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import HomeStackScreen from './src/stacks/HomeStackScreen';
-import {Box, NativeBaseProvider, useTheme} from 'native-base';
+import {Box, NativeBaseProvider} from 'native-base';
 import LoginScreen from './src/screens/LoginScreen';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {RootTabParamList} from './src/types/navigation';
 import {StoreProvider} from 'easy-peasy';
-import {store, useStoreState} from './src/features/auth';
+import {store, useStoreState} from './src/features/store';
 import {ProgressStore} from './src/features/progress';
 import {getProgresses, storeProgresses} from './src/services/progress';
 import {ReadProgress} from './src/types/progress';
@@ -28,12 +25,6 @@ import {customTheme} from './src/utils/theme';
 const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
 function App(): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
     <SafeAreaProvider>
       <StoreProvider store={store}>

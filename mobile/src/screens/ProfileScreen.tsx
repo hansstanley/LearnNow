@@ -8,7 +8,7 @@ import {
 } from 'native-base';
 import {PasswordInput, UsernameInput} from '../components/form';
 import {ToastAlert} from '../components/toast';
-import {useStoreActions, useStoreState} from '../features/auth';
+import {useStoreActions, useStoreState} from '../features/store';
 
 export default function ProfileScreen() {
   const toast = useToast();

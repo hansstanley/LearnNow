@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Heading, Pressable, Stack, Text} from 'native-base';
 import {useEffect, useState} from 'react';
-import {useStoreState} from '../../features/auth';
+import {useStoreState} from '../../features/store';
 import {ProgressStore} from '../../features/progress';
 import {getChapter, getSection} from '../../services/api';
 import {getLastSection, storeLastSection} from '../../services/progress';

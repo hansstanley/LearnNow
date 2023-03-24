@@ -1,5 +1,4 @@
-import {FlatList, ScrollView, Stack} from 'native-base';
-import {useState} from 'react';
+import {Stack} from 'native-base';
 import {Section} from '../../types/section';
 import SectionItem from './SectionItem';
 
