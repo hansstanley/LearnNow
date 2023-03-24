@@ -1,5 +1,6 @@
 import {ScrollView, Stack, Text} from 'native-base';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
+import {ScrollView as ReactScrollView} from 'react-native';
 import {useStoreState} from '../features/auth';
 import {ProgressStore} from '../features/progress';
 import {storeLastProgress} from '../services/progress';
@@ -14,20 +15,26 @@ export default function SectionScreen({route}: SectionScreenProps) {
   const setLastProgress = ProgressStore.useStoreActions(
     actions => actions.setLastProgress,
   );
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(
+    lastProgress?.completion,
+  );
+  const scrollRef = useRef<ReactScrollView>();
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({y: lastProgress?.completion || 0});
+  }, [scrollRef]);
 
   useEffect(() => {
     setLastProgress({
       lastProgress: {
         chapterId: section.fields.chapter,
         sectionId: section.pk,
-        completion: scrollProgress,
+        completion: scrollProgress || 0,
       },
     });
-  }, [scrollProgress]);
+  }, [section, scrollProgress]);
 
   useEffect(() => {
-    console.log(username, lastProgress);
     if (username && lastProgress) {
       storeLastProgress(username, lastProgress);
     }
@@ -35,7 +42,10 @@ export default function SectionScreen({route}: SectionScreenProps) {
 
   return (
     <ScrollView
-      onScroll={event => setScrollProgress(event.nativeEvent.contentOffset.y)}>
+      ref={scrollRef}
+      onMomentumScrollEnd={event =>
+        setScrollProgress(event.nativeEvent.contentOffset.y)
+      }>
       <Stack space={2} p={5}>
         <Text _light={{color: 'primary.800'}} _dark={{color: 'primary.200'}}>
           {section.fields.summary}
