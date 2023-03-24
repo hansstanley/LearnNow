@@ -8,6 +8,7 @@ import {
   VStack,
 } from 'native-base';
 import {useState} from 'react';
+import {PasswordInput, UsernameInput} from '../components/form';
 import {useStoreActions} from '../features/auth';
 import {login, register} from '../services/api';
 
@@ -64,23 +65,13 @@ export default function LoginScreen() {
         padding={5}
         width="80%">
         <Heading size="3xl">LearnNow</Heading>
-        <Input
-          placeholder="Username"
-          value={username}
-          onChangeText={handleUsernameChange}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChangeText={handlePasswordChange}
-        />
+        <UsernameInput value={username} onChange={handleUsernameChange} />
+        <PasswordInput value={password} onChange={handlePasswordChange} />
         {registerToggle ? (
-          <Input
-            type="password"
-            placeholder="Confirm password"
+          <PasswordInput
+            label="Confirm password"
             value={passwordConfirm}
-            onChangeText={handlePasswordConfirmChange}
+            onChange={handlePasswordConfirmChange}
           />
         ) : null}
         <HStack space={2}>
