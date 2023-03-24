@@ -1,10 +1,16 @@
 import {ScrollView, Stack, Text} from 'native-base';
 import {useEffect, useState} from 'react';
+import {useStoreState} from '../features/auth';
 import {ProgressStore} from '../features/progress';
+import {storeLastProgress} from '../services/progress';
 import {SectionScreenProps} from '../types/navigation';
 
 export default function SectionScreen({route}: SectionScreenProps) {
   const section = route.params.section;
+  const username = useStoreState(state => state.auth.username);
+  const lastProgress = ProgressStore.useStoreState(
+    state => state.progress.lastProgress,
+  );
   const setLastProgress = ProgressStore.useStoreActions(
     actions => actions.setLastProgress,
   );
@@ -19,6 +25,13 @@ export default function SectionScreen({route}: SectionScreenProps) {
       },
     });
   }, [scrollProgress]);
+
+  useEffect(() => {
+    console.log(username, lastProgress);
+    if (username && lastProgress) {
+      storeLastProgress(username, lastProgress);
+    }
+  }, [username, lastProgress]);
 
   return (
     <ScrollView

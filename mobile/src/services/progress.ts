@@ -3,9 +3,9 @@ import {ReadProgress} from '../types/progress';
 
 const LAST_PROGRESS_KEY = '@last_progress';
 
-export async function getLastProgress() {
+export async function getLastProgress(username: string) {
   try {
-    const json = await AsyncStorage.getItem(LAST_PROGRESS_KEY);
+    const json = await AsyncStorage.getItem(getLastProgressKey(username));
     if (!json) {
       return null;
     }
@@ -17,11 +17,19 @@ export async function getLastProgress() {
   }
 }
 
-export async function storeLastProgress(progress: ReadProgress) {
+export async function storeLastProgress(
+  username: string,
+  progress: ReadProgress,
+) {
+  console.log(username, progress);
   try {
     const json = JSON.stringify(progress);
-    await AsyncStorage.setItem(LAST_PROGRESS_KEY, json);
+    await AsyncStorage.setItem(getLastProgressKey(username), json);
   } catch (err) {
     console.error(err);
   }
+}
+
+function getLastProgressKey(username: string) {
+  return `${LAST_PROGRESS_KEY}/${username}`;
 }

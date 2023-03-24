@@ -28,7 +28,7 @@ export default function LoginScreen() {
   const handleLogin = () => {
     login(username, password)
       .then(res => {
-        setToken({userToken: res.config.data});
+        setToken({userToken: res.config.data, username});
       })
       .catch(err => {
         console.error(err);
@@ -42,7 +42,7 @@ export default function LoginScreen() {
     }
     register(username, password)
       .then(res => {
-        setToken({userToken: res.config.data});
+        setToken({userToken: res.config.data, username});
       })
       .catch(err => {
         console.error(err);

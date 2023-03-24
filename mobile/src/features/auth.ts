@@ -1,6 +1,7 @@
 import {action, Action, createStore, createTypedHooks} from 'easy-peasy';
 
 export interface AuthState {
+  username?: string;
   userToken?: string;
 }
 
@@ -12,7 +13,7 @@ export interface AuthModel {
 export const store = createStore<AuthModel>({
   auth: {},
   setToken: action((state, payload) => {
-    state.auth.userToken = payload.userToken;
+    state.auth = payload;
   }),
 });
 

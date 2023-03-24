@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Heading, HStack, Pressable, Stack, Text} from 'native-base';
 import {useEffect, useState} from 'react';
+import {useStoreState} from '../../features/auth';
 import {ProgressStore} from '../../features/progress';
 import {getChapter, getSection} from '../../services/api';
 import {getLastProgress} from '../../services/progress';
@@ -10,6 +11,7 @@ import {Section} from '../../types/section';
 
 export default function LastChapter() {
   const navigation = useNavigation<HomeScreenProps['navigation']>();
+  const username = useStoreState(state => state.auth.username);
   const lastProgress = ProgressStore.useStoreState(
     state => state.progress.lastProgress,
   );
@@ -20,10 +22,13 @@ export default function LastChapter() {
   const [section, setSection] = useState<Section>();
 
   useEffect(() => {
-    getLastProgress().then(p =>
+    if (!username) {
+      return;
+    }
+    getLastProgress(username).then(p =>
       setLastProgress({lastProgress: p || undefined}),
     );
-  }, []);
+  }, [username]);
 
   useEffect(() => {
     if (!lastProgress) {
