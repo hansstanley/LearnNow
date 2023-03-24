@@ -14,7 +14,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import ProfileScreen from './src/screens/ProfileScreen';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import HomeStackScreen from './src/stacks/HomeStackScreen';
-import {Box, NativeBaseProvider} from 'native-base';
+import {Box, NativeBaseProvider, useTheme} from 'native-base';
 import LoginScreen from './src/screens/LoginScreen';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {RootTabParamList} from './src/types/navigation';
@@ -41,7 +41,12 @@ function App(): JSX.Element {
           <NativeBaseProvider theme={customTheme}>
             <NavigationContainer>
               <AuthGuard>
-                <Tab.Navigator>
+                <Tab.Navigator
+                  activeColor={customTheme.colors.primary['900']}
+                  inactiveColor={customTheme.colors.dark['50']}
+                  barStyle={{
+                    backgroundColor: customTheme.colors.primary['50'],
+                  }}>
                   <Tab.Screen
                     name="Learn"
                     component={HomeStackScreen}

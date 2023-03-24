@@ -4,7 +4,7 @@ import {LastRead} from '../components/progress';
 
 export default function HomeScreen() {
   return (
-    <ScrollView>
+    <ScrollView bg="white">
       <Stack space={2} p={5}>
         <Heading size="3xl" my={5}>
           Chapters
