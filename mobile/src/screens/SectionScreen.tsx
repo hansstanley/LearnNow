@@ -19,6 +19,7 @@ export default function SectionScreen({route}: SectionScreenProps) {
   const [scrollProgress, setScrollProgress] = useState(
     currentProgress?.completion,
   );
+  const [scrollPercentage, setScrollPercentage] = useState(1);
   const scrollRef = useRef<ReactScrollView>();
 
   useEffect(() => {
@@ -34,8 +35,9 @@ export default function SectionScreen({route}: SectionScreenProps) {
       chapterId: section.fields.chapter,
       sectionId: section.pk,
       completion: scrollProgress || 0,
+      isCompleted: scrollPercentage > 0.9,
     });
-  }, [section, scrollProgress]);
+  }, [scrollProgress]);
 
   const fillContent = useCallback(() => {
     const regex = /\[.*\]/;
@@ -68,6 +70,12 @@ export default function SectionScreen({route}: SectionScreenProps) {
   return (
     <ScrollView
       ref={scrollRef}
+      onScroll={({nativeEvent}) => {
+        const {contentOffset, contentSize, layoutMeasurement} = nativeEvent;
+        setScrollPercentage(
+          (layoutMeasurement.height + contentOffset.y) / contentSize.height,
+        );
+      }}
       onMomentumScrollEnd={event =>
         setScrollProgress(event.nativeEvent.contentOffset.y)
       }>

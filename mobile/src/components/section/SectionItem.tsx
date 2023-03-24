@@ -1,5 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
-import {Heading, Pressable, Stack, Text} from 'native-base';
+import {Badge, Heading, Pressable, Stack, Text} from 'native-base';
+import {ProgressStore} from '../../features/progress';
 import {ChapterScreenProps} from '../../types/navigation';
 import {Section} from '../../types/section';
 
@@ -9,6 +10,11 @@ export interface SectionItemProps {
 
 export default function SectionItem({section}: SectionItemProps) {
   const navigation = useNavigation<ChapterScreenProps['navigation']>();
+  const progresses = ProgressStore.useStoreState(
+    state => state.progress.progresses,
+  );
+
+  const progress = progresses.find(p => p.sectionId === section.pk);
 
   const handlePress = () => {
     navigation.navigate('Section', {section});
@@ -26,6 +32,11 @@ export default function SectionItem({section}: SectionItemProps) {
           bg="light.50">
           <Heading size="md">{section.fields.title}</Heading>
           <Text>{section.fields.summary}</Text>
+          {progress?.isCompleted ? (
+            <Badge rounded="md" colorScheme="primary" alignSelf="flex-start">
+              COMPLETED
+            </Badge>
+          ) : null}
         </Stack>
       )}
     </Pressable>
