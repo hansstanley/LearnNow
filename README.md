@@ -22,6 +22,10 @@ Not only does the app remember the last section you read, but it also tracks the
 
 Moreover, the read progress is saved to your username, meaning multiple users can use the same app on the same phone and still have their individual progresses right there when they need it.
 
+
+https://user-images.githubusercontent.com/20805849/227531875-e98b08e9-301c-43d7-857f-c1cb491f1d4a.mp4
+
+
 ### Rich Content
 
 ![Text and images](docs/images/content.png)
