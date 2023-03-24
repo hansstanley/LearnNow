@@ -1,22 +1,20 @@
 import {action, Action, createContextStore} from 'easy-peasy';
 import {ReadProgress} from '../types/progress';
+import {Section} from '../types/section';
 
 export interface ProgressState {
-  lastProgress?: ReadProgress;
+  lastSection?: Section;
   progresses: ReadProgress[];
 }
 
 export interface ProgressModel {
   progress: ProgressState;
-  setLastProgress: Action<ProgressModel, ProgressState>;
+  setLastSection: Action<ProgressModel, Section>;
   setProgress: Action<ProgressModel, ReadProgress>;
 }
 
 export const ProgressStore = createContextStore<ProgressModel>({
   progress: {progresses: []},
-  setLastProgress: action((state, payload) => {
-    state.progress.lastProgress = payload.lastProgress;
-  }),
   setProgress: action((state, payload) => {
     const index = state.progress.progresses.findIndex(
       p => p.sectionId === payload.sectionId,
@@ -26,5 +24,8 @@ export const ProgressStore = createContextStore<ProgressModel>({
     } else {
       state.progress.progresses.splice(index, 1, payload);
     }
+  }),
+  setLastSection: action((state, payload) => {
+    state.progress.lastSection = payload;
   }),
 });

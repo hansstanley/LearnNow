@@ -1,9 +1,7 @@
 import {ScrollView, Stack, Text} from 'native-base';
 import {useEffect, useRef, useState} from 'react';
 import {ScrollView as ReactScrollView} from 'react-native';
-import {useStoreState} from '../features/auth';
 import {ProgressStore} from '../features/progress';
-import {storeLastProgress} from '../services/progress';
 import {SectionScreenProps} from '../types/navigation';
 
 export default function SectionScreen({route}: SectionScreenProps) {
@@ -14,6 +12,9 @@ export default function SectionScreen({route}: SectionScreenProps) {
   const setProgress = ProgressStore.useStoreActions(
     actions => actions.setProgress,
   );
+  const setLastSection = ProgressStore.useStoreActions(
+    actions => actions.setLastSection,
+  );
   const currentProgress = progressMap.find(p => p.sectionId === section.pk);
   const [scrollProgress, setScrollProgress] = useState(
     currentProgress?.completion,
@@ -23,6 +24,10 @@ export default function SectionScreen({route}: SectionScreenProps) {
   useEffect(() => {
     scrollRef.current?.scrollTo({y: currentProgress?.completion || 0});
   }, [scrollRef]);
+
+  useEffect(() => {
+    setLastSection(section);
+  }, [section]);
 
   useEffect(() => {
     setProgress({
