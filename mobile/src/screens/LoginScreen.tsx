@@ -9,14 +9,14 @@ import {
 } from 'native-base';
 import {useState} from 'react';
 import {useStoreActions} from '../features/auth/auth';
-import {login} from '../services/api';
+import {login, register} from '../services/api';
 
 export default function LoginScreen() {
   const setToken = useStoreActions(actions => actions.setToken);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [register, setRegister] = useState(false);
+  const [registerToggle, setRegisterToggle] = useState(false);
 
   const handleUsernameChange = (text: string) => setUsername(text);
 
@@ -35,10 +35,22 @@ export default function LoginScreen() {
       });
   };
 
-  const handleRegister = () => {};
+  const handleRegister = () => {
+    if (password !== passwordConfirm) {
+      console.error('Passwords do not match');
+      return;
+    }
+    register(username, password)
+      .then(res => {
+        setToken({userToken: res.config.data});
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  };
 
   const toggleRegister = () => {
-    setRegister(!register);
+    setRegisterToggle(!registerToggle);
   };
 
   return (
@@ -63,7 +75,7 @@ export default function LoginScreen() {
           value={password}
           onChangeText={handlePasswordChange}
         />
-        {register ? (
+        {registerToggle ? (
           <Input
             type="password"
             placeholder="Confirm password"
@@ -72,11 +84,13 @@ export default function LoginScreen() {
           />
         ) : null}
         <HStack space={2}>
-          <Button onPress={handleLogin}>
-            {register ? 'Register' : 'Login'}
+          <Button onPress={registerToggle ? handleRegister : handleLogin}>
+            {registerToggle ? 'Register' : 'Login'}
           </Button>
           <Button variant="ghost" onPress={toggleRegister}>
-            {register ? 'Already have an account?' : "Don't have an account?"}
+            {registerToggle
+              ? 'Already have an account?'
+              : "Don't have an account?"}
           </Button>
         </HStack>
       </VStack>

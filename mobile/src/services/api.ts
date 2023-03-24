@@ -20,6 +20,17 @@ export async function login(username: string, password: string) {
   );
 }
 
+export async function register(username: string, password: string) {
+  return client.post(
+    `register/`,
+    {username, password},
+    {
+      baseURL: BASE_URL,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+    },
+  );
+}
+
 export async function getChapters() {
   return client
     .get<Chapter[]>('chapters', {baseURL: BASE_URL})

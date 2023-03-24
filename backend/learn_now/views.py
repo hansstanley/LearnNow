@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core import serializers
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 
 from .models import Chapter, Section
 
@@ -15,16 +16,23 @@ def index(request):
 
 @csrf_exempt
 def user_login(request):
-    print(request.POST)
     username = request.POST['username']
     password = request.POST['password']
-    print(username, password)
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
         return HttpResponse()
     else:
         return HttpResponse(status=401)
+
+
+@csrf_exempt
+def user_register(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    user = User.objects.create_user(username=username, password=password)
+    user.save()
+    return HttpResponse(serializers.serialize('json', [user]))
 
 
 def all_chapters(request):
