@@ -1,18 +1,22 @@
 import {
+  Alert,
   Button,
   Center,
   Heading,
   HStack,
   Input,
   Text,
+  useToast,
   VStack,
 } from 'native-base';
 import {useState} from 'react';
 import {PasswordInput, UsernameInput} from '../components/form';
+import {ToastAlert} from '../components/toast';
 import {useStoreActions} from '../features/auth';
 import {login, register} from '../services/api';
 
 export default function LoginScreen() {
+  const toast = useToast();
   const setToken = useStoreActions(actions => actions.setToken);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -30,9 +34,22 @@ export default function LoginScreen() {
     login(username, password)
       .then(res => {
         setToken({userToken: res.config.data, username});
+        toast.show({
+          placement: 'bottom',
+          render: () => <ToastAlert status="success" message="Success!" />,
+        });
       })
       .catch(err => {
         console.error(err);
+        toast.show({
+          placement: 'bottom',
+          render: () => (
+            <ToastAlert
+              status="error"
+              message="Incorrect username or password!"
+            />
+          ),
+        });
       });
   };
 
@@ -59,7 +76,7 @@ export default function LoginScreen() {
       <VStack
         space={5}
         alignItems="flex-start"
-        rounded="xl"
+        rounded="2xl"
         bg="light.50"
         shadow={2}
         padding={5}
@@ -75,10 +92,12 @@ export default function LoginScreen() {
           />
         ) : null}
         <HStack space={2}>
-          <Button onPress={registerToggle ? handleRegister : handleLogin}>
+          <Button
+            rounded="xl"
+            onPress={registerToggle ? handleRegister : handleLogin}>
             {registerToggle ? 'Register' : 'Login'}
           </Button>
-          <Button variant="ghost" onPress={toggleRegister}>
+          <Button rounded="xl" variant="ghost" onPress={toggleRegister}>
             {registerToggle
               ? 'Already have an account?'
               : "Don't have an account?"}

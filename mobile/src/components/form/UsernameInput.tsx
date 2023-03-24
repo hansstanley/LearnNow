@@ -15,6 +15,7 @@ export default function UsernameInput({
     <FormControl isDisabled={disabled}>
       <FormControl.Label ml={2}>Username</FormControl.Label>
       <Input
+        rounded="xl"
         isReadOnly={disabled}
         placeholder="Username"
         value={value}

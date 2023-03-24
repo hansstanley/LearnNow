@@ -17,6 +17,7 @@ export default function PasswordInput({
     <FormControl isDisabled={disabled}>
       <FormControl.Label ml={2}>{label}</FormControl.Label>
       <Input
+        rounded="xl"
         placeholder="Password"
         type="password"
         value={value}
