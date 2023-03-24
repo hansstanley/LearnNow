@@ -21,6 +21,8 @@ import {RootTabParamList} from './src/types/navigation';
 import {StoreProvider} from 'easy-peasy';
 import {store, useStoreState} from './src/features/auth';
 import {ProgressStore} from './src/features/progress';
+import {getProgresses, storeProgresses} from './src/services/progress';
+import {ReadProgress} from './src/types/progress';
 
 const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
@@ -97,7 +99,33 @@ const styles = StyleSheet.create({
 export default App;
 
 function AuthGuard({children}: PropsWithChildren) {
-  const userToken = useStoreState(state => state.auth.userToken);
+  const {userToken, username} = useStoreState(state => state.auth);
+  const progressMap = ProgressStore.useStoreState(
+    state => state.progress.progresses,
+  );
+  const setProgress = ProgressStore.useStoreActions(
+    actions => actions.setProgress,
+  );
+
+  useEffect(() => {
+    if (!username || !progressMap.length) {
+      return;
+    }
+    const progresses: ReadProgress[] = [];
+    for (let progress of progressMap.values()) {
+      progresses.push(progress);
+    }
+    storeProgresses(username, progresses);
+  }, [username, progressMap]);
+
+  useEffect(() => {
+    if (!username) {
+      return;
+    }
+    getProgresses(username).then(progresses => {
+      progresses.forEach(p => setProgress(p));
+    });
+  }, [username]);
 
   useEffect(() => {
     console.log(userToken);

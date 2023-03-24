@@ -8,37 +8,29 @@ import {SectionScreenProps} from '../types/navigation';
 
 export default function SectionScreen({route}: SectionScreenProps) {
   const section = route.params.section;
-  const username = useStoreState(state => state.auth.username);
-  const lastProgress = ProgressStore.useStoreState(
-    state => state.progress.lastProgress,
+  const progressMap = ProgressStore.useStoreState(
+    state => state.progress.progresses,
   );
-  const setLastProgress = ProgressStore.useStoreActions(
-    actions => actions.setLastProgress,
+  const setProgress = ProgressStore.useStoreActions(
+    actions => actions.setProgress,
   );
+  const currentProgress = progressMap.find(p => p.sectionId === section.pk);
   const [scrollProgress, setScrollProgress] = useState(
-    lastProgress?.completion,
+    currentProgress?.completion,
   );
   const scrollRef = useRef<ReactScrollView>();
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({y: lastProgress?.completion || 0});
+    scrollRef.current?.scrollTo({y: currentProgress?.completion || 0});
   }, [scrollRef]);
 
   useEffect(() => {
-    setLastProgress({
-      lastProgress: {
-        chapterId: section.fields.chapter,
-        sectionId: section.pk,
-        completion: scrollProgress || 0,
-      },
+    setProgress({
+      chapterId: section.fields.chapter,
+      sectionId: section.pk,
+      completion: scrollProgress || 0,
     });
   }, [section, scrollProgress]);
-
-  useEffect(() => {
-    if (username && lastProgress) {
-      storeLastProgress(username, lastProgress);
-    }
-  }, [username, lastProgress]);
 
   return (
     <ScrollView
