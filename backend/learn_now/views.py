@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from django.core import serializers
+from django.contrib.auth import authenticate, login, logout
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import Chapter, Section
 
@@ -9,6 +11,20 @@ from .models import Chapter, Section
 
 def index(request):
     return HttpResponse("Hello from the LearnNow index")
+
+
+@csrf_exempt
+def user_login(request):
+    print(request.POST)
+    username = request.POST['username']
+    password = request.POST['password']
+    print(username, password)
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        return HttpResponse()
+    else:
+        return HttpResponse(status=401)
 
 
 def all_chapters(request):
