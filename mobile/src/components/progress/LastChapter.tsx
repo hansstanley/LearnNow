@@ -1,26 +1,41 @@
 import {useNavigation} from '@react-navigation/native';
-import {AxiosError} from 'axios';
-import {Heading, Pressable, Stack, Text} from 'native-base';
+import {Heading, HStack, Pressable, Stack, Text} from 'native-base';
 import {useEffect, useState} from 'react';
+import {ProgressStore} from '../../features/progress';
 import {getChapter, getSection} from '../../services/api';
+import {getLastProgress} from '../../services/progress';
 import {Chapter} from '../../types/chapter';
 import {HomeScreenProps} from '../../types/navigation';
 import {Section} from '../../types/section';
-import {LAST_POSITION} from '../../utils/sample';
 
 export default function LastChapter() {
   const navigation = useNavigation<HomeScreenProps['navigation']>();
+  const lastProgress = ProgressStore.useStoreState(
+    state => state.progress.lastProgress,
+  );
+  const setLastProgress = ProgressStore.useStoreActions(
+    actions => actions.setLastProgress,
+  );
   const [chapter, setChapter] = useState<Chapter>();
   const [section, setSection] = useState<Section>();
 
   useEffect(() => {
-    getChapter(LAST_POSITION.chapterId).then(c => setChapter(c));
-    getSection(LAST_POSITION.chapterId, LAST_POSITION.sectionId)
+    getLastProgress().then(p =>
+      setLastProgress({lastProgress: p || undefined}),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!lastProgress) {
+      return;
+    }
+    getChapter(lastProgress.chapterId).then(c => setChapter(c));
+    getSection(lastProgress.chapterId, lastProgress.sectionId)
       .then(s => setSection(s))
       .catch(err => {
         console.error(err);
       });
-  }, []);
+  }, [lastProgress]);
 
   const handlePress = () => {
     if (section) {
@@ -28,7 +43,7 @@ export default function LastChapter() {
     }
   };
 
-  return (
+  return lastProgress ? (
     <Pressable p={1} onPress={handlePress}>
       {({isPressed}) => (
         <Stack
@@ -42,11 +57,16 @@ export default function LastChapter() {
             Continue where you left off
           </Text>
           <Heading size="md">{chapter?.fields.title}</Heading>
-          <Text _light={{color: 'primary.800'}} _dark={{color: 'primary.200'}}>
-            {section?.fields.title}
-          </Text>
+          <HStack space={2}>
+            <Text
+              _light={{color: 'primary.800'}}
+              _dark={{color: 'primary.200'}}>
+              {section?.fields.title}
+            </Text>
+            <Text>{lastProgress.completion} %</Text>
+          </HStack>
         </Stack>
       )}
     </Pressable>
-  );
+  ) : null;
 }

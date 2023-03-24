@@ -8,7 +8,7 @@ import {
   VStack,
 } from 'native-base';
 import {useState} from 'react';
-import {useStoreActions} from '../features/auth/auth';
+import {useStoreActions} from '../features/auth';
 import {login, register} from '../services/api';
 
 export default function LoginScreen() {

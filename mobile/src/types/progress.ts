@@ -1,4 +1,5 @@
-export interface LastPosition {
+export interface ReadProgress {
   chapterId: number;
   sectionId: number;
+  completion: number;
 }

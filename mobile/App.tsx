@@ -19,7 +19,8 @@ import LoginScreen from './src/screens/LoginScreen';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import {RootTabParamList} from './src/types/navigation';
 import {StoreProvider} from 'easy-peasy';
-import {store, useStoreState} from './src/features/auth/auth';
+import {store, useStoreState} from './src/features/auth';
+import {ProgressStore} from './src/features/progress';
 
 const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
@@ -33,40 +34,42 @@ function App(): JSX.Element {
   return (
     <SafeAreaProvider>
       <StoreProvider store={store}>
-        <NativeBaseProvider>
-          <NavigationContainer>
-            <AuthGuard>
-              <Tab.Navigator>
-                <Tab.Screen
-                  name="Learn"
-                  component={HomeStackScreen}
-                  options={{
-                    tabBarIcon: ({color, focused}) => (
-                      <Icon
-                        name={focused ? 'home' : 'home-outline'}
-                        size={20}
-                        color={color}
-                      />
-                    ),
-                  }}
-                />
-                <Tab.Screen
-                  name="Profile"
-                  component={ProfileScreen}
-                  options={{
-                    tabBarIcon: ({color, focused}) => (
-                      <Icon
-                        name={focused ? 'person' : 'person-outline'}
-                        size={20}
-                        color={color}
-                      />
-                    ),
-                  }}
-                />
-              </Tab.Navigator>
-            </AuthGuard>
-          </NavigationContainer>
-        </NativeBaseProvider>
+        <ProgressStore.Provider>
+          <NativeBaseProvider>
+            <NavigationContainer>
+              <AuthGuard>
+                <Tab.Navigator>
+                  <Tab.Screen
+                    name="Learn"
+                    component={HomeStackScreen}
+                    options={{
+                      tabBarIcon: ({color, focused}) => (
+                        <Icon
+                          name={focused ? 'home' : 'home-outline'}
+                          size={20}
+                          color={color}
+                        />
+                      ),
+                    }}
+                  />
+                  <Tab.Screen
+                    name="Profile"
+                    component={ProfileScreen}
+                    options={{
+                      tabBarIcon: ({color, focused}) => (
+                        <Icon
+                          name={focused ? 'person' : 'person-outline'}
+                          size={20}
+                          color={color}
+                        />
+                      ),
+                    }}
+                  />
+                </Tab.Navigator>
+              </AuthGuard>
+            </NavigationContainer>
+          </NativeBaseProvider>
+        </ProgressStore.Provider>
       </StoreProvider>
     </SafeAreaProvider>
   );

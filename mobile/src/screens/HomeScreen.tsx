@@ -1,4 +1,4 @@
-import {Box, Divider, Heading, ScrollView, Stack} from 'native-base';
+import {Divider, Heading, ScrollView, Stack} from 'native-base';
 import {ChapterList} from '../components/chapter';
 import {LastChapter} from '../components/progress';
 
