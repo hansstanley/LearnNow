@@ -6,7 +6,7 @@
  */
 
 import React, {PropsWithChildren, useEffect} from 'react';
-import {StyleSheet, useColorScheme} from 'react-native';
+import {useColorScheme} from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
@@ -23,6 +23,7 @@ import {store, useStoreState} from './src/features/auth';
 import {ProgressStore} from './src/features/progress';
 import {getProgresses, storeProgresses} from './src/services/progress';
 import {ReadProgress} from './src/types/progress';
+import {customTheme} from './src/utils/theme';
 
 const Tab = createMaterialBottomTabNavigator<RootTabParamList>();
 
@@ -37,7 +38,7 @@ function App(): JSX.Element {
     <SafeAreaProvider>
       <StoreProvider store={store}>
         <ProgressStore.Provider>
-          <NativeBaseProvider>
+          <NativeBaseProvider theme={customTheme}>
             <NavigationContainer>
               <AuthGuard>
                 <Tab.Navigator>
@@ -76,25 +77,6 @@ function App(): JSX.Element {
     </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
 export default App;
 

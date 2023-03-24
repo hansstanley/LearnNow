@@ -72,7 +72,7 @@ export default function LoginScreen() {
   };
 
   return (
-    <Center bg="primary.100" flex={1}>
+    <Center bg="primary.50" flex={1}>
       <VStack
         space={5}
         alignItems="flex-start"

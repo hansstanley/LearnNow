@@ -7,7 +7,7 @@ export interface ToastAlertProps extends InterfaceAlertProps {
 
 export default function ToastAlert({message, ...others}: ToastAlertProps) {
   return (
-    <Alert {...others} variant="top-accent" rounded="xl">
+    <Alert {...others} rounded="xl">
       <Text>{message}</Text>
     </Alert>
   );
