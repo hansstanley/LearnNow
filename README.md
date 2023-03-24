@@ -16,13 +16,9 @@ Simple username-and-password based authentication to access the app.
 
 ![Chapters and sections screens](docs/images/chapters_sections.png)
 
-The content from the backend is organised into chapters and sections for easy navigation. Additionally, the last-read section is pinned to the top of the `Chapters` screen, to jump straight back reading.
+The content from the backend is organised into chapters and sections for easy navigation. Additionally, the last-read section is pinned to the top of the `Chapters` screen, to jump straight back to reading.
 
-
-https://user-images.githubusercontent.com/20805849/227514678-c25d3ff2-558f-4dbf-a5e8-c14f2db7b895.mov
-
-
-Not only does the app remember the last section you read, but it also tracks the exact position in the section you stopped at. This works for all sections, which especially helps those who like to jump back and forth between sections.
+Not only does the app remember the last section you read, but it also tracks the exact position in the section you stopped at. This works for all sections, which especially helps those who like to jump back and forth between sections. The overall progress through each chapter is also shown as the number of sections read, with each completed section marked.
 
 Moreover, the read progress is saved to your username, meaning multiple users can use the same app on the same phone and still have their individual progresses right there when they need it.
 
