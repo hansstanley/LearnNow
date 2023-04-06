@@ -48,3 +48,25 @@ Frontend (mobile app)
 
 Backend
 * [Django](https://github.com/django/django) framework
+
+### Getting started with the backend
+
+1. If you wish to use `venv`, activate it using `source path/to/venv/bin/activate`.
+2. Ensure Django dependencies are installed.
+3. `cd` into `LearnNow/backend`.
+4. Start the server with `python manage.py runserver`.
+
+### Getting started with the mobile app
+
+**On an Android simulator**
+
+1. Start the Android virtual device (AVD).
+   1. For a list of AVD names, use `emulator -list-avds`.
+   2. To start an AVD, use `emulator -avd @avd_name`.
+2. `cd` into `LearnNow/mobile`.
+3. Ensure the app dependencies are installed.
+4. Start Metro with `npx react-native start`.
+5. Install and run the app with `npx react-native run-android` in a new terminal window.
+   1. To install on a specific devices, use `npx react-native run-android --deviceId=@device_id`.
+   2. The list of device IDs can be shown with `adb devices`.
+
